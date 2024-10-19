@@ -1,0 +1,306 @@
+#pragma pattern_limit 9999999
+#pragma array_limit 9999999
+
+enum FileFormatId : u8 {
+    FORMAT_TUTORIALCTY = 0x53, // exclusively used for TUTORIAL.CTY
+    FORMAT_CTY = 0x56, // used for all other .cty files
+    FORMAT_SAVEGAME = 0x5A // used for savegames
+};
+
+enum Gender : u8 {
+    GENDER_MALE = 0x00,
+    GENDER_FEMALE = 0x01,
+    GENDER_NONBINARYPAL = 0x03 // realistically all values != 0 are considered female. But still.
+};
+
+enum Title : u8 {
+    TITLE_UNFREIE = 0x00,
+    TITLE_FRAU = 0x01,
+    TITLE_BUERGERIN = 0x02,
+    TITLE_PATRIZIERIN = 0x03,
+    TITLE_EDELFRAU = 0x04,
+    TITLE_FREIFRAU = 0x05,
+    TITLE_GRAEFIN = 0x06,
+    TITLE_HERZOGIN = 0x07,
+    TITLE_FUERSTIN = 0x08,
+    TITLE_REICHSFUERSTIN = 0x09,
+    TITLE_ZU_FAUL_ZUM_ARBEITEN = 0x10,
+    TITLE_ICH_SUCHE_NOCH_ARBEIT = 0x11
+    // values above 0x11 result in "titles" from the JobTitle list
+};
+
+enum Religion : u8 {
+    RELIGION_CATHOLIC,
+    RELIGION_CATARIC
+};
+
+enum JobTitle : u8 {
+    JOBTITLE_NONE = 0x00,
+	JOBTITLE_THIEF_6 = 0x01,
+	JOBTITLE_THIEF_5 = 0x02,
+	JOBTITLE_THIEF_4 = 0x03,
+	JOBTITLE_THIEF_3 = 0x04,
+	JOBTITLE_THIEF_2 = 0x05,
+	JOBTITLE_THIEF_1 = 0x06,
+	JOBTITLE_BANKER_1 = 0x07,
+	JOBTITLE_BANKER_1 = 0x08,
+	JOBTITLE_BANKER_1 = 0x09,
+	JOBTITLE_BANKER_1 = 0x0A,
+	JOBTITLE_BANKER_1 = 0x0B,
+	JOBTITLE_BANKER_1 = 0x0C,
+    JOBTITLE_PREACHER_6 = 0x0D,
+	JOBTITLE_PREACHER_5 = 0x0E,
+	JOBTITLE_PREACHER_4 = 0x0F,
+	JOBTITLE_PREACHER_3 = 0x10,
+	JOBTITLE_PREACHER_2 = 0x11,
+	JOBTITLE_PREACHER_1 = 0x12,
+	JOBTITLE_ALCHEMIST_6 = 0x13,
+	JOBTITLE_ALCHEMIST_5 = 0x14,
+	JOBTITLE_ALCHEMIST_4 = 0x15,
+	JOBTITLE_ALCHEMIST_3 = 0x16,
+	JOBTITLE_ALCHEMIST_2 = 0x17,
+	JOBTITLE_ALCHEMIST_1 = 0x18,
+	JOBTITLE_MINER_1 = 0x19, // Magnatin
+	JOBTITLE_MINER_2 = 0x20, // Leiterin des Steinbruchs
+	JOBTITLE_MINER_1 = 0x21, // Minenvorsteherin
+	JOBTITLE_PERFUMER_6 = 0x22,
+	JOBTITLE_PERFUMER_5 = 0x23,
+	JOBTITLE_PERFUMER_4 = 0x24,
+	JOBTITLE_PERFUMER_3 = 0x25,
+	JOBTITLE_PERFUMER_2 = 0x26,
+	JOBTITLE_PERFUMER_1 = 0x27,
+	JOBTITLE_ROBBER_6 = 0x28,
+	JOBTITLE_ROBBER_5 = 0x29,
+	JOBTITLE_ROBBER_4 = 0x2a,
+	JOBTITLE_ROBBER_3 = 0x2b,
+	JOBTITLE_ROBBER_2 = 0x2c,
+	JOBTITLE_ROBBER_1 = 0x2d,
+	JOBTITLE_BLACKSMITH_6 = 0x2e,
+	JOBTITLE_BLACKSMITH_5 = 0x2f,
+	JOBTITLE_BLACKSMITH_4 = 0x30,
+	JOBTITLE_BLACKSMITH_3 = 0x31,
+	JOBTITLE_BLACKSMITH_2 = 0x32,
+	JOBTITLE_BLACKSMITH_1 = 0x33,
+	JOBTITLE_GUARD_6 = 0x34,
+	JOBTITLE_GUARD_5 = 0x35,
+	JOBTITLE_GUARD_4 = 0x36,
+	JOBTITLE_GUARD_3 = 0x37,
+	JOBTITLE_GUARD_2 = 0x38,
+	JOBTITLE_GUARD_1 = 0x39,
+	JOBTITLE_STONEMASON_6 = 0x3A,
+	JOBTITLE_STONEMASON_5 = 0x3B,
+	JOBTITLE_STONEMASON_4 = 0x3C,
+	JOBTITLE_STONEMASON_3 = 0x3D,
+	JOBTITLE_STONEMASON_2 = 0x3E,
+	JOBTITLE_STONEMASON_1 = 0x3F,
+	JOBTITLE_JOINER_6 = 0x40,
+	JOBTITLE_JOINER_5 = 0x41,
+	JOBTITLE_JOINER_4 = 0x42,
+	JOBTITLE_JOINER_3 = 0x43,
+	JOBTITLE_JOINER_2 = 0x44,
+	JOBTITLE_JOINER_1 = 0x45,
+	JOBTITLE_LANDLORD_6 = 0x46,
+	JOBTITLE_LANDLORD_5 = 0x47,
+	JOBTITLE_LANDLORD_4 = 0x48,
+	JOBTITLE_LANDLORD_3 = 0x49,
+	JOBTITLE_LANDLORD_2 = 0x4A,
+	JOBTITLE_LANDLORD_1 = 0x4B,
+	JOBTITLE_CHURCHYARDWARDEN_6 = 0x4C,
+	JOBTITLE_CHURCHYARDWARDEN_5 = 0x4D,
+	JOBTITLE_CHURCHYARDWARDEN_4 = 0x4E,
+	JOBTITLE_CHURCHYARDWARDEN_3 = 0x4F,
+	JOBTITLE_CHURCHYARDWARDEN_2 = 0x50,
+	JOBTITLE_CHURCHYARDWARDEN_1 = 0x51,
+	JOBTITLE_SCIENTIST = 0x52, // Wissenschaftlerin
+	JOBTITLE_TRAVELLINGENTERTAINER_6 = 0x53,
+	JOBTITLE_TRAVELLINGENTERTAINER_5 = 0x54,
+	JOBTITLE_TRAVELLINGENTERTAINER_4 = 0x55,
+	JOBTITLE_TRAVELLINGENTERTAINER_3 = 0x56,
+	JOBTITLE_TRAVELLINGENTERTAINER_2 = 0x57,
+	JOBTITLE_TRAVELLINGENTERTAINER_1 = 0x58,
+	JOBTITLE_TAILOR_6 = 0x59,
+	JOBTITLE_TAILOR_5 = 0x5A,
+	JOBTITLE_TAILOR_4 = 0x5B,
+	JOBTITLE_TAILOR_3 = 0x5C,
+	JOBTITLE_TAILOR_2 = 0x5D,
+	JOBTITLE_TAILOR_1 = 0x5E
+	// beyond this point there are more values to resolve to strings, but I'm stopping here
+};
+
+enum BuildingType : u8 {
+    BUILDING_NONE = 0x00,
+    BUILDING_WORKERHOUSE1 = 0x01, // Arbeiterhütte
+    BUILDING_WORKERHOUSE2 = 0x02, // Arbeiterkate
+    BUILDING_WORKERHOUSE3 = 0x03, // Arbeiterhaus
+    BUILDING_HOUSE1 = 0x04, // Haus
+    BUILDING_HOUSE2 = 0x05, // Bürgerhaus
+    BUILDING_HOUSE3 = 0x06, // Villa
+    BUILDING_HOUSE4 = 0x07, // Palazzo
+    BUILDING_WELL1 = 0x08, // Schöpfstelle
+    // there are more types of buildings, but I don't feel like testing right now
+};
+
+
+struct UnknownStructure {
+    u8 data[51];
+};
+
+struct RGB {
+    u8 data[3];
+};
+
+struct SavegameScreenshotRow{
+    RGB row[160];
+};
+
+// the screenshot is an RGB bitmap 160 pixels wide and 120 pixels high. The color channels are u8.
+struct SavegameScreenshot {
+    SavegameScreenshotRow data[120];
+};
+
+struct BuildingInfo {
+    BuildingType type;
+    u8 unknown_data; // some sort of reference maybe?
+    u8 owner_id;
+    u8 unknown_data2[2];
+    char building_name[32];
+    u8 unknown_data4[4];
+    u8 unknown_data5[32];
+    u8 unknown_data6[2];
+    u8 unknown_data7[61];
+    if (type == 0x48) { // friedhof
+        u8 additional_building_data[1208];
+    } else if (type == 0x4e) { // gauklerlager
+        u8 additional_building_data[140];
+    } else if (type == 0x1e) { // waldstück
+        u8 additional_building_data[1104];
+    }
+    u32 ff_data;
+};
+
+struct BuildingInfoSavegame {
+    BuildingType type;
+    u8 unknown_data; // some sort of reference maybe?
+    u8 owner_id;
+    u8 unknown_data2[2];
+    char building_name[32];
+    u8 unknown_data4[4];
+    u8 unknown_data5[32];
+    u8 unknown_data6[14];
+    u8 unknown_data7[61];
+    if (type == 0x48) { // friedhof
+        u8 additional_building_data[1208];
+    } else if (type == 0x4e) { // gauklerlager
+        // u8 additional_building_data[140];
+    } else if (type == 0x1e) { // waldstück
+        u8 additional_building_data[1104];
+    }
+    u32 ff_data;
+};
+
+struct BkData {
+    u8 data[96];
+};
+
+// the data in the header is mostly used in savegames for the display in the savegame menu
+// they are not used for the actual game.
+// Note: for .cty files the (beginning of) the savegame_city_name has to be correct (up until the null
+// terminator)) to be displayed inn the city select menu. The game seems to be loading all .cty 
+// files and search their header_city_name for the correct strings
+struct Header {
+    char unknown_header[4]; // this seems to be always 0x00010002. Maybe the whole thing is a version number?
+    char header_city_name[32]; // only relevant for display in load menu, will not be used when loading. null terminated string which often has junk data after the null terminator
+    u8 unknown_data[10];
+    u32 savegame_year;// Offset 1400 years, only relevant for display in load menu, will not be used when loading
+    u16 savegame_time_hours; // only relevant for display in load menu, digits for the hundreds and above are cut off
+    u16 savegame_time_minutes; // only relevant for display in load menu, taken modulo 60 before display
+    u8 unknown_data2[6];
+    char player_first_name[0x10];
+    char player_last_name[0x10];
+    u8 unknown_data3[5];
+    JobTitle player_jobtitle;
+    u8 unknown_data4[2];
+    s32 player_wealth;
+    Gender player_gender;
+    u8 savegame_slot_number; // has to match the savegame slot, otherwise the game will not detect this as a valid savegame
+    u8 a_bunch_of_255s[8];
+    u8 filler[0x20];
+    SavegameScreenshot screenshot; // in the loading screen the outermost pixels are cut off
+    u8 empty_data[4];
+    char savegame_name[0x20];
+};
+
+// exclusively used for the tutorial.cty
+struct HeaderTutorial {
+    char unknown_header[4]; // this seems to be always 0x00010002. Maybe the whole thing is a version number?
+    char header_city_name[32]; // only relevant for display in load menu, will not be used when loading. null terminated string which often has junk data after the null terminator
+    u8 unknown_data[10];
+    u32 savegame_year;// Offset 1400 years, only relevant for display in load menu, will not be used when loading
+    u16 savegame_time_hours; // only relevant for display in load menu, digits for the hundreds and above are cut off
+    u16 savegame_time_minutes; // only relevant for display in load menu, taken modulo 60 before display
+    u8 unknown_data2[6];
+    char player_first_name[0x10];
+    u8 unknown_data3[8];
+    u8 savegame_slot_number; // has to match the savegame slot, otherwise the game will not detect this as a valid savegame
+    u8 a_bunch_of_255s[8];
+    u8 filler[0x20];
+    SavegameScreenshot screenshot; // in the loading screen the outermost pixels are cut off
+    u8 empty_data[4];
+    char savegame_name[0x20];
+};
+
+// this seems to be empty
+struct UnknownDataStructure2 {
+    u8 ff[2];
+    u8 data[157];
+};
+struct UnknownDataStructure2Tutorial {
+    u8 ff[2];
+    u8 data[153];
+};
+
+struct PersonData {
+    u8 unidentified_person_data1[52];
+    Gender gender;
+    u16 age_years;
+    Religion religion;
+    Title title;
+    u8 unidentified_person_data2[30];
+    char first_name[16];
+    char last_name[16];
+    u8 unidentified_person_data3[247];
+    u8 action_points;
+    u8 unidentified_person_data4[87];
+};
+
+struct MainStructure {
+    FileFormatId file_format;
+    if (file_format != FileFormatId::FORMAT_TUTORIALCTY) {
+        Header header;
+    } else {
+        HeaderTutorial header;
+    }
+    u8 unknown_data[139];
+    u32 unknown_structure_counter;
+    UnknownStructure unknown_structure[unknown_structure_counter];
+    u32 building_data_count;
+    if (file_format == FileFormatId::FORMAT_CTY) {
+        BuildingInfo buildings[building_data_count - 1]; // uh... off by one error maybe? xD
+    } else if (file_format == FileFormatId::FORMAT_TUTORIALCTY) {
+        BuildingInfo buildings[building_data_count];
+    } else {
+        BuildingInfoSavegame buildings[building_data_count];
+    }
+    u32 bk_data_counter;
+    BkData bk_data[bk_data_counter];
+    if (file_format == FileFormatId::FORMAT_TUTORIALCTY) {
+        UnknownDataStructure2Tutorial unknown_data2[16];
+    } else {
+        UnknownDataStructure2 unknown_data2[16];
+    }
+    u8 unknown_data3[2];
+    u32 people_count;
+    PersonData people_data[people_count];
+};
+
+MainStructure main @ 0x0;
